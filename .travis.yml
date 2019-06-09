@@ -5,7 +5,7 @@ env:
   matrix:
     - LISP=abcl
     - LISP=ccl  # sporadic issues fetching files, just restart
-    #- LISP=clisp # strange ...
+    - LISP=clisp  # works on my systems ...
     #- LISP=cmucl # missing cim
     - LISP=ecl
     - LISP=sbcl
