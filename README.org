@@ -14,19 +14,19 @@ Racket style =#;= comments implemented as a dispatch macro.
 (ql:quickload :datum-comments)
 #+end_src
 
-** Manual
+** Manual install
 Using =sbcl= as an example.
-#+begin_src lisp
-cat >> ~/.sbclrc
-(asdf:quickload :datum-comments)
+#+begin_src bash
+git clone https://github.com/tgbugs/datum-comments.git
+cat "(push (truename #p\"datum-comments\") asdf:*central-registry*)" >> ~/.sbclrc
+sbcl --eval "(asdf:load-system :datum-comments) #;(i im a comment) (print 'hello)"
 #+end_src
 
 * Usage
 Since comments are a fundamental part of a language datum-comments automatically
-registers itself as a dispatch macro for the =#;= symbol.
-To enable datum comments obtain the code from [[https://github.com/tgbugs/datum-comments]], or install via quicklisp (),
-and then include it in the =:use= section of =defpackage= where you want to be able
-to use datum comments, e.g. as
+registers itself as a dispatch macro for the =#;= symbol. Install via one of the
+methods above and then include =:datum-comments= in the =:use= section of
+=defpackage= where you want to be able to use datum comments, e.g. as
 
 #+begin_src lisp
 (defpackage :my-package

@@ -48,6 +48,6 @@ mauauauauauahahahaha
 (two fish) ; woo!
 
 (defun run-all-tests ()
-  (print "running tests, but if you got here then this was a success")
-  (print (format nil "got test value ~s" *test-value*))
+  (princ "running tests, but if you got here then this was a success")
+  (princ (format nil "~%got test value ~s~%~%" *test-value*))
   t)
