@@ -1,17 +1,18 @@
-language: lisp
+language: common-lisp
 sudo: required
 
 env:
   matrix:
     - LISP=abcl
-    - LISP=ccl  # sporadic issues fetching files, just restart
-    - LISP=clisp  # works on my systems ...
-    #- LISP=cmucl # missing cim
+    - LISP=ccl
+    - LISP=clasp
+    - LISP=clisp
+    - LISP=cmucl
     - LISP=ecl
     - LISP=sbcl
 
 install:
-  - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;  # XXX bad
+  - curl -L https://raw.githubusercontent.com/roswell/roswell/release/scripts/install-for-ci.sh | sh  # XXX bad
 
 script:
   - bin/run-tests
