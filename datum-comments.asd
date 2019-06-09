@@ -7,11 +7,13 @@
 
 (defsystem :datum-comments
   :version "0.0.1"
+  :author "Tom Gillespie <tgbugs@gmail.com>"
+  :license "Public Domain (Unlicense)"
+  :description "datum #;(comments) for common lisp"
   :serial t  ; needed so that packages loads before the others
   :components ((:file "packages")
                (:file "read")
-               (:file "enable")
-               ))
+               (:file "enable")))
 
 (defsystem :datum-comments-test
   :depends-on (:datum-comments)
