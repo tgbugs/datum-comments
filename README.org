@@ -6,3 +6,16 @@ Racket style =#;= comments implemented as a dispatch macro.
 (and the next datum is skipped by the reader)
 #; (so you can skip a datum inline) (print "and not just a line or block")
 #+end_src
+
+* Usage
+Since comments are a fundamental part of a language datum-comments automatically
+registers itself as a dispatch macro for the =#;= symbol. To enable datum comments
+obtain the code from github, or quicklisp, and then include it in the `:use` section
+of defpackage where you want to be able to use datum comments, e.g. as
+
+#+begin_src lisp
+(defpackage :my-package
+  (:use :cl :datum-comments))
+#+end_src
+
+at which point you can #;(use datum comments to your heart's content)
