@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 FAIL=no
-cl -e "(progn (push (truename #p\"${TRAVIS_BUILD_DIR}\") asdf:*central-registry*)
+cl -e "(progn (push #p\"$(realpath ${TRAVIS_BUILD_DIR})\" asdf:*central-registry*)
        (if (asdf:test-system :datum-comments)
            (uiop:quit 0)
            (uiop:quit 1)))" || export FAIL=${FAIL}:asdf
-cl -e "(progn (push (truename #p\"${TRAVIS_BUILD_DIR}\") ql:*local-project-directories*)
+cl -e "(progn (push #p\"$(realpath ${TRAVIS_BUILD_DIR})\" ql:*local-project-directories*)
        (ql:quickload :datum-comments)
        (if (asdf:test-system :datum-comments)
            (uiop:quit 0)
