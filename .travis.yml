@@ -2,6 +2,8 @@ language: lisp
 sudo: required
 
 env:
+  global:
+    - FAIL=no
   matrix:
     - LISP=sbcl
     - LISP=ecl
@@ -10,14 +12,6 @@ install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;  # XXX bad
 
 script:
-  - export FAIL=no
-  - cl -e "(progn (push (truename #p\"${TRAVIS_BUILD_DIR}\") asdf:*central-registry*)
-           (if (asdf:test-system :datum-comments)
-               (uiop:quit 0)
-               (uiop:quit 1)))" # || export FAIL=yes
-  - cl -e "(progn (push (truename #p\"${TRAVIS_BUILD_DIR}\") ql:*local-project-directories*)
-           (ql:quickload :datum-comments)
-           (if (asdf:test-system :datum-comments)
-               (uiop:quit 0)
-               (uiop:quit 1)))" # || export FAIL=yes
-  #- if [ "${FAIL}" = "yes" ]; then exit 1; else exit 0; fi
+  - cl -e '(progn (push (truename #p"'"${TRAVIS_BUILD_DIR}"'") asdf:*central-registry*) (if (asdf:test-system :datum-comments) (uiop:quit 0) (uiop:quit 1)))' || export FAIL=yes
+  - cl -e '(progn (push (truename #p"'"${TRAVIS_BUILD_DIR}"'") ql:*local-project-directories*) (ql:quickload :datum-comments) (if (asdf:test-system :datum-comments) (uiop:quit 0) (uiop:quit 1)))' || export FAIL=yes
+  - if [ "${FAIL}" = "yes" ]; then exit 1; else exit 0; fi
