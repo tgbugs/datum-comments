@@ -1,0 +1,15 @@
+language: lisp
+sudo: required
+
+env:
+  matrix:
+    - LISP=sbcl
+
+install:
+  - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;  # XXX bad
+
+script:
+  - cl -e "(push (truename #p\"${TRAVIS_BUILD_DIR}\") asdf:*central-registry*)
+           (if (asdf:test-system :datum-comments)
+               (uiop:quit 0)
+               (uiop:quit 1))"

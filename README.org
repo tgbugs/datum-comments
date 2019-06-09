@@ -1,0 +1,8 @@
+* datum comments for common lisp
+Racket style =#;= comments implemented as a dispatch macro.
+
+#+begin_src lisp
+#; ; regular comments are treated as whitespace
+(and the next datum is skipped by the reader)
+#; (so you can skip a datum inline) (print "and not just a line or block")
+#+end_src
