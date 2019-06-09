@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+FAIL=no
 cl -e "(progn (push (truename #p\"${TRAVIS_BUILD_DIR}\") asdf:*central-registry*)
        (if (asdf:test-system :datum-comments)
            (uiop:quit 0)

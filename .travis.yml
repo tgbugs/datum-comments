@@ -2,11 +2,13 @@ language: lisp
 sudo: required
 
 env:
-  global:
-    - FAIL=no
   matrix:
-    - LISP=sbcl
+    - LISP=abcl
+    - LISP=ccl
+    - LISP=clisp
+    - LISP=cmucl
     - LISP=ecl
+    - LISP=sbcl
 
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | sh;  # XXX bad
