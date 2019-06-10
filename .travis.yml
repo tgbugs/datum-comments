@@ -5,7 +5,7 @@ env:
   matrix:
     - LISP=abcl
     - LISP=ccl
-    - LISP=clasp
+    #- LISP=clasp  # takes took long to build
     - LISP=clisp
     - LISP=cmucl
     - LISP=ecl
