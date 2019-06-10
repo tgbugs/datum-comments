@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 FAIL=no
 THIS_REPO=${TRAVIS_BUILD_DIR}
-ros -e "(progn (push #p\"${THIS_REPO}\" asdf:*central-registry*)
+ros -e "(progn (push (uiop:truenamize #p\"${THIS_REPO}\") asdf:*central-registry*)
         (if (asdf:test-system :datum-comments)
             (uiop:quit 0)
             (uiop:quit 1)))" || export FAIL=${FAIL}:asdf
-ros -e "(progn (push #p\"${THIS_REPO}\" ql:*local-project-directories*)
+ros -e "(progn (push (uiop:truenamize #p\"${THIS_REPO}\") ql:*local-project-directories*)
         (ql:quickload :datum-comments)
         (if (asdf:test-system :datum-comments)
             (uiop:quit 0)
