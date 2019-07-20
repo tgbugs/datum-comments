@@ -9,9 +9,10 @@ Racket style =#;= comments implemented as a dispatch macro.
 #+end_src
 
 * Installation
-** [[https://www.quicklisp.org/][Quicklisp]] (coming [[https://github.com/quicklisp/quicklisp-projects/issues/1692][soon]])
+** [[https://www.quicklisp.org/][Quicklisp]]
 #+begin_src lisp
 (ql:quickload :datum-comments)
+#;(skip) '(show)  ; datum comments work immediately after quickload
 #+end_src
 
 ** Manual install
@@ -33,7 +34,7 @@ methods above and then include =:datum-comments= in the =:use= section of
   (:use :cl :datum-comments))
 #+end_src
 
-at which point you can #;(use datum comments to your heart's content)
+at which point you can =#;(use datum comments to your heart's content)=
 
 * Implementation support
 This should work on any cl that has =asdf=, and the copy/paste version
@@ -51,4 +52,24 @@ of tested working implementations.
   (read-preserving-whitespace stream t nil t)
   (values))
 (set-dispatch-macro-character #\# #\; #'datum-comment)
+#+end_src
+
+* Syntax highlighting and editing
+If you are using emacs you can add the following hook to =~/.emacs=.
+The approach is lifted straight from [[https://github.com/greghendershott/racket-mode][racket-mode]].
+Highlighting as =#;= with font lock isn't quite working yet.
+#+begin_src emacs-lisp
+;;; lisp datum comment support
+(defun lisp-syntax-propertize-function (start end)
+  (goto-char start)
+  (funcall
+   (syntax-propertize-rules
+    ((rx "#;")
+     (0 "'")))
+   (point)
+   end))
+(defun lisp-custom ()
+  (setq-local syntax-propertize-function #'lisp-syntax-propertize-function)
+  (syntax-propertize (point-max)))
+(add-hook 'lisp-mode-hook #'lisp-custom)
 #+end_src
