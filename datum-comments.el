@@ -32,7 +32,7 @@
   ;; detected as a comment and regular comments on the
   ;; same line as a datum comment will not be commented
   ;; out correctly if they contain closing parens, and
-  ;; slime-forward-sexp will fail as a result
+  ;; `slime-forward-sexp' will fail as a result
   (goto-char start)
   (funcall
    (syntax-propertize-rules
