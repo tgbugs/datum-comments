@@ -37,7 +37,7 @@
   (funcall
    (syntax-propertize-rules
     ((rx "#;")
-     (0 "_")))
+     (0 "'")))
    (point)
    end))
 
