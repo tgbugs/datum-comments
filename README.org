@@ -57,7 +57,7 @@ of tested working implementations.
 #+end_src
 
 * Syntax highlighting and editing
-An experimental [[./datum-comments.el][=datum-comments-mode=]]is available for emacs. A minimal
+An experimental [[./datum-comments.el][datum-comments-mode]] is available for emacs. A minimal
 entry for [[${HOME}/.emacs][~/.emacs]]/[[${HOME}/.emacs.d/init.el][init.el]]
 is below.
 #+begin_src emacs-lisp :eval never
