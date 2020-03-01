@@ -1,5 +1,9 @@
 (in-package :datum-comments-test)
 
+#+()
+(this should hrm
+      still indents correctly)
+
 ;; inline
 #; (testing) (defparameter *test-value* "hahahah I am not commented out") #; but-i-am!
 
@@ -18,6 +22,17 @@
 ;; nested
 #;(test this should ;be ok right?)
    #; nothing )
+
+;; nested for highlight testing
+#;
+(regular comments should be parsed as such ; this is a comment)
+         this is the rest of the datum comment)
+
+#;
+(actually nested test without throwing in a regular comment
+          #;
+          (the nested sexp)
+          this is also commented out)
 
 ;; symbol
 #;

@@ -1,5 +1,7 @@
-* datum comments for common lisp
+#+title: datum comments for common lisp
+
 [[img:https://travis-ci.org/tgbugs/datum-comments.svg?branch=master][https://travis-ci.org/tgbugs/datum-comments]]
+
 Racket style =#;= comments implemented as a dispatch macro.
 
 #+begin_src lisp
@@ -55,21 +57,41 @@ of tested working implementations.
 #+end_src
 
 * Syntax highlighting and editing
-If you are using emacs you can add the following hook to =~/.emacs=.
-The approach is lifted straight from [[https://github.com/greghendershott/racket-mode][racket-mode]].
-Highlighting as =#;= with font lock isn't quite working yet.
-#+begin_src emacs-lisp
-;;; lisp datum comment support
-(defun lisp-syntax-propertize-function (start end)
-  (goto-char start)
-  (funcall
-   (syntax-propertize-rules
-    ((rx "#;")
-     (0 "'")))
-   (point)
-   end))
-(defun lisp-custom ()
-  (setq-local syntax-propertize-function #'lisp-syntax-propertize-function)
-  (syntax-propertize (point-max)))
-(add-hook 'lisp-mode-hook #'lisp-custom)
+An experimental [[./datum-comments.el][=datum-comments-mode=]]is available for emacs. A minimal
+entry for [[${HOME}/.emacs][~/.emacs]]/[[${HOME}/.emacs.d/init.el][init.el]]
+is below.
+#+begin_src emacs-lisp :eval never
+(use-package lisp-mode
+  :init
+  (use-package datum-comments
+    :load-path "~/git/datum-comments" ;; adjust accordingly
+    :hook (lisp-mode . datum-comments-mode)))
+#+end_src
+
+This will probably fail right now unless you also have slime enabled,
+and has not been sufficiently tested.
+
+Support for named readtables or detection by slime of a datum-comments
+feature has not been implemented but is planned.
+
+There are also known bugs with the interaction between regular comments
+and datum comments causing datum comments to be highlighted incorrectly.
+* Racket behavior for comparison
+#+begin_src racket :results none
+#lang racket/base
+#;(this is commented out) '(this is not) ; this is
+#;(this should break how does greg avoid the issue? ; this is a comment)
+        and this is open ended)
+
+#;
+(test this should ;be ok right?)
+      #; nothing)
+
+;; double, the racket behavior is as expected, comments are comments
+#; ; help I'm
+#; ; trapped in
+(one fish) ; yay!
+(two fish) ; woo!
+
+#; #; 'one 'two 'three
 #+end_src
