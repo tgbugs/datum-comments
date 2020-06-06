@@ -1,4 +1,4 @@
-(in-package :datum-comments-test)
+(in-package :datum-comments/test)
 
 #+()
 (this should hrm
