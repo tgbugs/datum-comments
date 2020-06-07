@@ -2,7 +2,8 @@
 
 (defun datum-comment (stream char arg)
   (declare (ignore char arg))
-  (read-preserving-whitespace stream t nil t)
+  (let ((*read-suppress* t))
+    (read-preserving-whitespace stream t nil t))
   (values))
 
 (defun enable-datum-comments ()

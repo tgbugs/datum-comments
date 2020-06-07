@@ -1,5 +1,7 @@
 (in-package :datum-comments/test)
 
+(format t "testing ~a ~%" (lisp-implementation-type))
+
 #+()
 (this should hrm
       still indents correctly)
@@ -66,7 +68,31 @@ mauauauauauahahahaha
 (one fish) ; yay!
 (two fish) ; woo!
 
+;; dealing with package names
+#;
+(package:name should be skipped and not cause an error)
+
+(defvar *success* '())
+
+#; wat: (push 1 *success*)
+#; :wat (push 2 *success*)
+#; wat:wat (push 3 *success*)
+
+#;(other wat: darn) (push 4 *success*)
+#;(other :wat crap) (push 5 *success*)
+#;(other (wat:v-1) shoot) (push 6 *success*)
+#;(other (wat:v0 nested) shoot) (push 7 *success*)
+
+#;(other wat:v1) (push 8 *success*)
+#;(wat:v2) (push 9 *success*)
+#;(wat:v3 other) (push 10 *success*)
+
 (defun run-all-tests ()
-  (princ "running tests, but if you got here then this was a success")
-  (princ (format nil "~%got test value ~s~%~%" *test-value*))
+  (let* ((max 10)
+         (all (loop for n from 1 to max collect n))
+         (eaten (set-difference all *success*))
+         (was/were (if (= 1 (length eaten)) "were" "was")))
+    (when eaten (error (format nil "~a ~a eaten!" eaten was/were))))
+  (format t "running tests, but if you got here then this was a success")
+  (format t "~%got test value ~s~%~%" *test-value*)
   t)

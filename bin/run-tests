@@ -2,10 +2,16 @@
 FAIL=no
 THIS_REPO=${TRAVIS_BUILD_DIR}
 ros -e "(progn (push (uiop:truenamize #p\"${THIS_REPO}\") asdf:*central-registry*)
+        (setf *debugger-hook* (lambda (c h)
+                                      (declare (ignore c h))
+                                      (uiop:quit -1)))
         (if (asdf:test-system :datum-comments)
             (uiop:quit 0)
             (uiop:quit 1)))" || export FAIL=${FAIL}:asdf
 ros -e "(progn (push (uiop:truenamize #p\"${THIS_REPO}\") ql:*local-project-directories*)
+        (setf *debugger-hook* (lambda (c h)
+                                      (declare (ignore c h))
+                                      (uiop:quit -1)))
         (ql:quickload :datum-comments)
         (if (asdf:test-system :datum-comments)
             (uiop:quit 0)
