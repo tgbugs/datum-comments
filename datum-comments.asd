@@ -6,7 +6,7 @@
 (in-package :datum-comments-asd)
 
 (defsystem :datum-comments
-  :version "0.0.1"
+  :version "0.0.2"
   :author "Tom Gillespie <tgbugs@gmail.com>"
   :license "Public Domain (Unlicense)"
   :description "datum #;(comments) for common lisp"
